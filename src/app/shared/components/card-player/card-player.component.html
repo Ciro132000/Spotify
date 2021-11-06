@@ -18,7 +18,7 @@
 <!-- Diseño del mode (big)-->
 <div *ngIf="mode==='big'" class="card-player player-big">
 
-    <img [src]="track.cover" alt="" class="cover">
+    <img appImgBroken [customImg]="'https://previews.123rf.com/images/apoev/apoev1704/apoev170400021/76972552-error-404-p%C3%A1gina-no-encontrada-.jpg'"  [src]="track.cover" alt="" class="cover">
 
     <div class="content-player">
         <div class="title-track">{{track.name}}</div>
