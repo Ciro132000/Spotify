@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TrackModel } from '@core/models/tracks.model';
+import { MultimediaService } from '@shared/services/multimedia.service';
+import { Subscription } from 'rxjs'; //TODO; programación reactiva
 
 
 @Component({
@@ -7,7 +9,7 @@ import { TrackModel } from '@core/models/tracks.model';
   templateUrl: './media-player.component.html',
   styleUrls: ['./media-player.component.css']
 })
-export class MediaPlayerComponent implements OnInit {
+export class MediaPlayerComponent implements OnInit, OnDestroy {
 
   mockCover:TrackModel={
     cover:'https://amordeimagenes.com/wp-content/uploads/2018/04/fondo-para-celular-de-mario-bros-300x300.jpg',
@@ -16,10 +18,22 @@ export class MediaPlayerComponent implements OnInit {
     url:'http://localhost/tracks.mp3',
     _id:1
   }
-    
-  constructor() { }
+  
+  listaObservers$:Array<Subscription>=[];
+
+  constructor(private multimediaService: MultimediaService) { }
 
   ngOnInit(): void {
+    const observer1$: Subscription = this.multimediaService.callback.subscribe(
+      (response:TrackModel)=>{
+        console.log('recibiendo', response)
+      }
+    )
+    this.listaObservers$=[observer1$]
+  }
+
+  ngOnDestroy():void{
+    this.listaObservers$.forEach(u=>u.unsubscribe());
   }
 
 }
