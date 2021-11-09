@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { TrackService } from '@modules/tracks/services/track.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -25,7 +24,8 @@ export class SideBarComponent implements OnInit {
     }
   ]*/
 
-  constructor(private router: Router, private tracksService: TrackService) { }
+  constructor(private router: Router) { } //Ejemplo de inyeccion desde otro component sin API
+                                          //private tracksService: TrackService
 
   ngOnInit(): void {
     this.mainMenu.defaultOptions = [
@@ -77,28 +77,32 @@ export class SideBarComponent implements OnInit {
       }
     ]
 
-    this.tracksService.datTracksRandom$.subscribe(
-      (response:any)=>{
-        this.customOptions.push(
-          {
-            name: response[0].name,
-            router: []
-          }
-        )
-      }
-    )
+
+    //Ejemplo de inyeccion desde otro component sin API
+
+    // this.tracksService.datTracksRandom$.subscribe(
+    //   (response:any)=>{
+    //     this.customOptions.push(
+    //       {
+    //         name: response[0].name,
+    //         router: []
+    //       }
+    //     )
+    //   }
+    // )
 
   }
 
   goTo($event: any): void {
     //Ejemplo del uso de QueryParams
-    // this.router.navigate(['/', 'favorites'], {
-    //   queryParams: {
-    //     key1: 'value1',
-    //     key2: 'value2',
-    //     key3: 'value3'
-    //   }
-    // })
+    this.router.navigate(['/', 'favorites'], {
+      queryParams: {
+         key1: 'value1',
+         key2: 'value2',
+         key3: 'value3'
+       }
+    })
+    console.log($event);
   }
 
 }
