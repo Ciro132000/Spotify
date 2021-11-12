@@ -1,0 +1,4 @@
+<div class="search-component">
+    <!--ngModelChange: se dispara cuando el valor almacenado se modifica se usa para captura el envio de informacion-->
+    <input (ngModelChange)="callSearch($event)" [(ngModel)]="src" type="text" placeholder="Artistas, canciones o pódcast" >
+</div>

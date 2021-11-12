@@ -1,1 +1,5 @@
-<p>history-page works!</p>
+<div class="history-page">
+    <app-search (callBackData)="reciveEData($event)" ></app-search>
+    <!--ASYNC cancela las peticiones y actualiza a la peticion mas cercana, lo usamos para no almacenar peticiones-->
+    <app-play-list-body [tracks]="listResults$ | async" ></app-play-list-body>
+</div>
